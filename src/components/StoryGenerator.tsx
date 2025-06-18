@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -10,25 +9,18 @@ import { useToast } from '@/hooks/use-toast';
 
 const StoryGenerator = () => {
   const [prompt, setPrompt] = useState('');
-  const [apiKey, setApiKey] = useState('');
   const [story, setStory] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  // Hardcoded API key
+  const apiKey = 'AIzaSyBPIluo0P8oUrWj2yQSCR6ix-sLZ_ZbADE';
 
   const generateStory = async () => {
     if (!prompt.trim()) {
       toast({
         title: "Please enter a story prompt",
         description: "We need a creative prompt to generate your adventure!",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    if (!apiKey.trim()) {
-      toast({
-        title: "API Key Required",
-        description: "Please enter your Gemini API key to generate stories.",
         variant: "destructive"
       });
       return;
@@ -96,7 +88,7 @@ Make this story absolutely captivating for young readers!`
       console.error('Error generating story:', error);
       toast({
         title: "Error generating story",
-        description: "Please check your API key and try again.",
+        description: "Please try again with a different prompt.",
         variant: "destructive"
       });
     } finally {
@@ -127,41 +119,6 @@ Make this story absolutely captivating for young readers!`
             Create amazing adventures and magical stories for young explorers!
           </p>
         </div>
-
-        {/* API Key Input */}
-        <Card className="mb-6 bg-white/10 backdrop-blur border-white/20">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <span>🔑</span> Gemini API Key
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <Label htmlFor="apiKey" className="text-purple-200">
-                Enter your Gemini API key to start creating stories
-              </Label>
-              <Input
-                id="apiKey"
-                type="password"
-                placeholder="Enter your Gemini API key..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-purple-200"
-              />
-              <p className="text-sm text-purple-300">
-                Get your free API key from{' '}
-                <a 
-                  href="https://makersuite.google.com/app/apikey" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-yellow-300 hover:underline"
-                >
-                  Google AI Studio
-                </a>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Story Input */}
         <Card className="mb-6 bg-white/10 backdrop-blur border-white/20">
