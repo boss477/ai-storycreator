@@ -19,7 +19,7 @@ const StoryGenerator = () => {
     if (!prompt.trim()) {
       toast({
         title: "Please enter a story prompt",
-        description: "We need a creative prompt to generate your story!",
+        description: "We need a creative prompt to generate your adventure!",
         variant: "destructive"
       });
       return;
@@ -46,7 +46,19 @@ const StoryGenerator = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Write a creative, engaging short story (300-500 words) based on this prompt: "${prompt}". Make it vivid, with interesting characters and a compelling narrative. Include dialogue and descriptive details to bring the story to life.`
+              text: `Write a fun, exciting adventure story for 9-year-old kids (300-400 words) based on this prompt: "${prompt}". 
+
+Requirements:
+- Use simple, age-appropriate language that 9-year-olds can easily understand
+- Include brave, curious kid characters as the main heroes
+- Make it full of wonder, magic, and exciting discoveries
+- Add fun dialogue and exciting action
+- Include a positive message about friendship, courage, or kindness
+- Keep it completely appropriate for children - no scary or inappropriate content
+- Make it engaging with lots of adventure and imagination
+- End with a happy, satisfying conclusion
+
+Make this story absolutely captivating for young readers!`
             }]
           }],
           generationConfig: {
@@ -74,8 +86,8 @@ const StoryGenerator = () => {
         setStory(generatedStory);
         
         toast({
-          title: "Story Generated!",
-          description: "Your creative story is ready to read.",
+          title: "Adventure Ready!",
+          description: "Your exciting story is ready to read!",
         });
       } else {
         throw new Error('Unexpected response format');
@@ -107,12 +119,12 @@ const StoryGenerator = () => {
           <div className="flex items-center justify-center gap-3 mb-4">
             <BookOpen className="h-12 w-12 text-purple-300" />
             <h1 className="text-5xl font-bold text-white">
-              AI Story Generator
+              Kids Adventure Story Generator
             </h1>
             <Sparkles className="h-12 w-12 text-yellow-300" />
           </div>
           <p className="text-xl text-purple-200">
-            Transform your imagination into captivating stories with AI
+            Create amazing adventures and magical stories for young explorers!
           </p>
         </div>
 
@@ -126,7 +138,7 @@ const StoryGenerator = () => {
           <CardContent>
             <div className="space-y-2">
               <Label htmlFor="apiKey" className="text-purple-200">
-                Enter your Gemini API key to start generating stories
+                Enter your Gemini API key to start creating stories
               </Label>
               <Input
                 id="apiKey"
@@ -154,14 +166,14 @@ const StoryGenerator = () => {
         {/* Story Input */}
         <Card className="mb-6 bg-white/10 backdrop-blur border-white/20">
           <CardHeader>
-            <CardTitle className="text-white">What story would you like to create?</CardTitle>
+            <CardTitle className="text-white">What adventure would you like to read about?</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="prompt" className="text-purple-200">Story Prompt</Label>
+              <Label htmlFor="prompt" className="text-purple-200">Story Adventure Idea</Label>
               <Textarea
                 id="prompt"
-                placeholder="A time traveler visits ancient Egypt and discovers something that changes history..."
+                placeholder="A brave kid finds a magical doorway in their backyard that leads to a kingdom where animals can talk..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onKeyPress={handleKeyPress}
@@ -170,12 +182,14 @@ const StoryGenerator = () => {
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <span className="text-sm text-purple-300">Try these prompts:</span>
+              <span className="text-sm text-purple-300">Try these kid-friendly adventures:</span>
               {[
-                "A robot learns to paint emotions",
-                "The last bookstore in a digital world",
-                "A chef who can taste memories in food",
-                "Two strangers share an umbrella during a meteor shower"
+                "A kid discovers their pet hamster is actually a tiny superhero",
+                "Two friends find a treasure map in their school library",
+                "A magical tree house that travels to different worlds",
+                "A young explorer meets friendly dragons in their grandmother's garden",
+                "Kids who can talk to toys that come alive at night",
+                "A secret club of kids who help lost magical creatures"
               ].map((suggestion, index) => (
                 <button
                   key={index}
@@ -195,12 +209,12 @@ const StoryGenerator = () => {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Crafting your story...
+                  Creating your adventure...
                 </>
               ) : (
                 <>
                   <Sparkles className="mr-2 h-4 w-4" />
-                  Generate Story
+                  Create My Adventure Story!
                 </>
               )}
             </Button>
@@ -213,12 +227,12 @@ const StoryGenerator = () => {
             <CardHeader>
               <CardTitle className="text-gray-800 flex items-center gap-2">
                 <BookOpen className="h-5 w-5" />
-                Your Generated Story
+                Your Amazing Adventure Story!
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="prose prose-lg max-w-none">
-                <div className="text-gray-700 leading-relaxed whitespace-pre-wrap font-serif">
+                <div className="text-gray-700 leading-relaxed whitespace-pre-wrap font-serif text-lg">
                   {story}
                 </div>
               </div>
