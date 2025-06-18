@@ -11,7 +11,6 @@ import { useToast } from '@/hooks/use-toast';
 const StoryGenerator = () => {
   const [prompt, setPrompt] = useState('');
   const [storyType, setStoryType] = useState('adventure');
-  const [character, setCharacter] = useState('brave-kid');
   const [setting, setSetting] = useState('magical-forest');
   const [story, setStory] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,15 +26,6 @@ const StoryGenerator = () => {
     { id: 'fantasy', name: 'Magic & Wonder', icon: '✨', description: 'Magical creatures and spells' },
     { id: 'superhero', name: 'Super Powers', icon: '🦸', description: 'Heroes saving the day' },
     { id: 'animal', name: 'Animal Friends', icon: '🐾', description: 'Talking animals and pets' }
-  ];
-
-  const characters = [
-    { id: 'brave-kid', name: 'Brave Explorer', icon: '🏔️' },
-    { id: 'smart-detective', name: 'Smart Detective', icon: '🕵️' },
-    { id: 'kind-helper', name: 'Kind Helper', icon: '💝' },
-    { id: 'creative-artist', name: 'Creative Artist', icon: '🎨' },
-    { id: 'animal-lover', name: 'Animal Lover', icon: '🐕' },
-    { id: 'inventor-kid', name: 'Young Inventor', icon: '🔧' }
   ];
 
   const settings = [
@@ -61,7 +51,6 @@ const StoryGenerator = () => {
     console.log('Starting story generation with prompt:', prompt);
 
     const selectedStoryType = storyTypes.find(t => t.id === storyType);
-    const selectedCharacter = characters.find(c => c.id === character);
     const selectedSetting = settings.find(s => s.id === setting);
 
     try {
@@ -76,7 +65,7 @@ const StoryGenerator = () => {
               text: `Write a fun, exciting ${selectedStoryType?.name.toLowerCase()} story for 9-year-old kids (350-450 words) based on this idea: "${prompt}". 
 
 Story Details:
-- Main Character: A ${selectedCharacter?.name.toLowerCase()} who is curious and brave
+- Main Character: A curious and brave kid hero
 - Setting: ${selectedSetting?.name}
 - Story Type: ${selectedStoryType?.description}
 
@@ -196,32 +185,6 @@ Make this story absolutely captivating and perfect for young readers who love ${
                           <div className="font-medium">{type.name}</div>
                           <div className="text-xs text-purple-300">{type.description}</div>
                         </div>
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </CardContent>
-            </Card>
-
-            {/* Character Selection */}
-            <Card className="bg-white/10 backdrop-blur border-white/20">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-green-300" />
-                  Who should be the main character?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <RadioGroup value={character} onValueChange={setCharacter} className="grid grid-cols-2 gap-3">
-                  {characters.map((char) => (
-                    <div key={char.id} className="flex items-center space-x-2">
-                      <RadioGroupItem value={char.id} id={char.id} className="text-green-300" />
-                      <Label 
-                        htmlFor={char.id} 
-                        className="text-purple-200 cursor-pointer hover:text-white transition-colors flex items-center gap-2"
-                      >
-                        <span className="text-lg">{char.icon}</span>
-                        <span className="font-medium">{char.name}</span>
                       </Label>
                     </div>
                   ))}
